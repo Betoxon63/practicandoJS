@@ -14,24 +14,57 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
     
-<body>
-    <!--- Modo oscuro -->
-    <div class="container-fluid mt-2">
-        <button class="btn btn-outline-dark" onclick="cambiarFondo()" title="Modo Oscuro">
-            <i class="bi bi-moon-fill" id="iconoFondo"></i>
-        </button>
+<body onload="mostrarSeccion('edad')">
+    <!--- Menu superior -->
+    <nav class="navbar navbar-expand-lg px-2">
+        <!--- Menu lado izquierdo -->
+        <div class="container-fluid d-flex align-items-center">
+            <!--- Botón modo oscuro -->
+            <button class="btn btn-outline-dark" onclick="cambiarFondo()" title="Modo Oscuro"> 
+                <i class="bi bi-moon-fill" id="iconoFondo"></i> <!--- Icono -->
+            </button>
+            <!--- Menu lado derecho --> 
+            <div class="d-flex gap-2">
+                <!--- botón calculadora edad -->
+                <button class="btn btn-outline-dark" onclick="mostrarSeccion('edad')" title="Calculadora Edad"> 
+                    <i class="bi bi-calculator-fill"></i> <!--- Icono -->
+                </button>
+                <!--- Botón calculadora temperatura -->
+                <button class="btn btn-outline-dark" onclick="mostrarSeccion('temperatura')" title="Calculadora Temperatura"> 
+                    <i class="bi bi-thermometer-sun"></i> <!--- Icono -->
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!--- Sección calculadora de edad -->
+    <div id="seccionEdad" class="container mt-4" style="display: none;">
+        <!--- Calculadora de edad -->
+        <div class="container text-center mt-5">
+            <h1 class="mb-4">Calculadora de Edad</h1> <!--- Titulo -->
+
+            <div class="mb-3">
+                <input type="date" id="fechaNacimiento" class="form-control w-50 mx-auto"> <!--- Input ingresar fecha -->
+            </div>
+
+            <button class="btn btn-primary" onclick="mostrarEdad()">Calcular edad</button> <!--- Boton calcular edad -->
+            <div id="resultado" class="mt-4 w-75 mx-auto"></div> <!--- Resultado de la edad -->
+        </div>
     </div>
 
-    <!--- Calculadora de edad -->
-    <div class="container text-center mt-5">
-        <h1 class="mb-4">Calculadora de Edad</h1>
+    <!--- Sección calculadora de temperatura -->
+    <div id="seccionTemperatura" class="container mt-5" style="display: none;">
+        <!--- Calculadora de temperatura -->
+        <div class="text-center">
+            <h1 class="mb-4">Calculadora de Temperatura</h1> <!--- Titulo -->
 
-        <div class="mb-3">
-            <input type="date" id="fechaNacimiento" class="form-control w-50 mx-auto">
+            <div class="mb-3">
+                <label for="temperatura" class=""></label>
+                <input type="number" step=".1" class="form-control w-50 mx-auto" id="temperatura" placeholder="Ingresa temperatura en °C"> <!--- Input ingresar temperatura -->
+            </div>
+
+            <button class="btn btn-primary" onclick="agregarTemperatura()">Agregar Temperatura</button> <!--- Boton agregar temperatura -->
         </div>
-
-        <button class="btn btn-primary" onclick="mostrarEdad()">Calcular edad</button>
-        <div id="resultado" class="mt-4 w-75 mx-auto"></div>
     </div>
 
     <!--- Enlace a Bootstrap JS -->

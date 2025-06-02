@@ -1,7 +1,6 @@
 let modoOscuro = false; // Establece el modo oscuro como falso.
 
-function cambiarFondo() { // Cambia el valor del modo oscuro.
-    const titulo = document.getElementById("titulo"); // Obtiene el título.
+function cambiarFondo() {
     const body = document.body; // Obtiene el body.
     const icono = document.getElementById("iconoFondo"); // Obtiene el icono.
 
@@ -11,12 +10,22 @@ function cambiarFondo() { // Cambia el valor del modo oscuro.
         body.classList.add("modo-oscuro"); // Añade la clase modo-oscuro.
         icono.classList.remove("bi-moon-fill"); // Elimina el icono bi-moon-fill.
         icono.classList.add("bi-brightness-high-fill"); // Añade el icono bi-brightness-high-fill.
-        titulo.textContent = "¡Goodbye World!"; // Cambia el texto del título.
     } else {
         body.classList.remove("modo-oscuro"); // Elimina la clase modo-oscuro.
         icono.classList.remove("bi-brightness-high-fill"); // Elimina el icono bi-brightness-high-fill.
         icono.classList.add("bi-moon-fill"); // Añade el icono bi-moon-fill.
-        titulo.textContent = "¡Hello World!"; // Cambia el texto del título.
+    }
+}
+
+function mostrarSeccion(seccion) {
+    // Oculta todas las secciones.
+    document.getElementById("seccionEdad").style.display = "none";
+    document.getElementById("seccionTemperatura").style.display = "none";
+
+    if (seccion === "edad") {
+        document.getElementById("seccionEdad").style.display = "block"; // Muestra la sección de edad.
+    } else if (seccion === "temperatura") {
+        document.getElementById("seccionTemperatura").style.display = "block"; // Muestra la sección de temperatura.
     }
 }
 
@@ -43,10 +52,10 @@ function mostrarEdad() {
         resultado.innerHTML = `
         <div class="alert alert-danger alert-dismissible">
             <div>
-                <i class="bi bi-exclamation-circle-fill me-2"></i>
+                <i class="bi bi-exclamation-diamond-fill me-2"></i>
                 Por favor, ingresa una fecha de nacimiento.
             </div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`;
         return; // Sale de la función.
     }

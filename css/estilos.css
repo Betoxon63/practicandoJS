@@ -2,36 +2,27 @@
 body {
     background-color: #f5f5f5;
     color: #333333;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
-}
-
-/* Estilo h1 - modo claro */
-h1 {
-    color: #333333;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Estilo botón - modo claro */
 .btn-outline-dark {
     border-color: #333333;
     color: #333333;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+    transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
 /* Estilo botón hover - modo claro */
 .btn-outline-dark:hover {
     background-color: #333333;
-    border-color: #333333;
     color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Estilo body - modo oscuro */
 .modo-oscuro {
     background-color: #333333;
-    color: #f5f5f5;
-}
-
-/* Estilo h1 - modo oscuro */
-.modo-oscuro h1 {
     color: #f5f5f5;
 }
 
@@ -44,8 +35,8 @@ h1 {
 /* Estilo botón hover - modo oscuro */
 .modo-oscuro .btn-outline-dark:hover {
     background-color: #f5f5f5;
-    border-color: #f5f5f5;
     color: #333333;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.4);
 }
 
 /* Estilo alerta */
