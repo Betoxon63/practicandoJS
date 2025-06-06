@@ -12,18 +12,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <!--- Enlace archivo CSS -->
     <link rel="stylesheet" href="css/estilos.css">
+    <!--- Enlace a SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
     
-<body onload="mostrarSeccion('edad')">
+<body onload="mostrarSeccion('tareas')"> <!--- Sección por defecto -->
     <!--- Menu superior -->
     <nav class="navbar navbar-expand-lg px-2">
-        <!--- Menu lado izquierdo -->
         <div class="container-fluid d-flex align-items-center">
             <!--- Botón modo oscuro -->
             <button class="btn btn-outline-dark" onclick="cambiarFondo()" title="Modo Oscuro"> 
-                <i class="bi bi-moon-fill" id="iconoFondo"></i> <!--- Icono -->
+                <i class="bi bi-moon-fill" id="iconoFondo"></i> <!--- Icono cambiante -->
             </button>
-            <!--- Menu lado derecho --> 
             <div class="d-flex gap-2">
                 <!--- botón calculadora edad -->
                 <button class="btn btn-outline-dark" onclick="mostrarSeccion('edad')" title="Calculadora Edad"> 
@@ -33,14 +33,18 @@
                 <button class="btn btn-outline-dark" onclick="mostrarSeccion('temperatura')" title="Calculadora Temperatura"> 
                     <i class="bi bi-thermometer-sun"></i> <!--- Icono -->
                 </button>
+                <!--- Botón listado tareas -->
+                <button class="btn btn-outline-dark" onclick="mostrarSeccion('tareas')" title="Listado de Tareas"> <!--- Botón listado de tareas -->
+                    <i class="bi bi-list-task"></i> <!--- Icono -->
+                </button>
             </div>
         </div>
     </nav>
 
     <!--- Sección calculadora de edad -->
-    <div id="seccionEdad" class="container mt-4" style="display: none;">
+    <div id="seccionEdad" class="container mt-5" style="display: none;">
         <!--- Calculadora de edad -->
-        <div class="container text-center mt-5">
+        <div class="text-center">
             <h1 class="mb-4">Calculadora de Edad</h1> <!--- Titulo -->
 
             <div class="mb-3">
@@ -59,13 +63,102 @@
             <h1 class="mb-4">Calculadora de Temperatura</h1> <!--- Titulo -->
 
             <div class="mb-3">
-                <label for="temperatura" class=""></label>
                 <input type="number" step=".1" class="form-control w-50 mx-auto" id="temperatura" placeholder="Ingresa temperatura en °C"> <!--- Input ingresar temperatura -->
             </div>
 
             <button class="btn btn-primary" onclick="agregarTemperatura()">Agregar Temperatura</button> <!--- Boton agregar temperatura -->
         </div>
     </div>
+
+    <!--- Sección Listado de Tareas -->
+    <section id="seccionTareas" class="container mt-5" style="display: none;">
+        <h1 class="text-center mb-4">Lista de Tareas</h1> <!--- Titulo -->
+
+        <!--- Ingresar Tarea -->
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-6">
+                <label for="tarea" class="visually-hidden">Tarea</label>
+                <input type="text" class="form-control" id="tarea" placeholder="Tarea 1">
+            </div>
+        </div>
+
+        <!--- Botones agregar, buscar, editar y eliminar tareas -->
+        <div class="row justify-content-center mb-4">
+            <!--- Botón agregar -->
+            <div class="col-auto">
+                <button id="btnAgregarTarea" class="btn btn-primary" onclick="agregarTarea()">
+                    <i class="bi bi-arrow-right-circle me-1"></i>Agregar
+                </button>
+            </div>
+            <!--- Botón buscar -->
+            <div class="col-auto">
+                <button id="btnBuscarTarea" class="btn btn-success" onclick="buscarTarea()">
+                    <i class="bi bi-search-heart-fill me-1"></i>Buscar
+                </button>
+            </div>
+            <!--- Botón editar -->
+            <div class="col-auto">
+                <button id="btnEditarTarea" class="btn btn-info" onclick="prepararEdicion()">
+                    <i class="bi bi-pencil-fill me-1"></i>Editar
+                </button>
+            </div>
+            <!--- Botón eliminar -->
+            <div class="col-auto">
+                <button id="btnEliminarTarea" class="btn btn-danger" onclick="mostrarModalEliminar()">
+                    <i class="bi bi-trash3-fill me-1"></i>Eliminar
+                </button>
+            </div>
+        </div>
+
+        <!--- Lista de tareas -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <ul id="listaTareas" class="list-group list-group-flush">
+                        <!--- Aquí se mostrarán las tareas -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Editar Tarea -->
+        <div class="modal fade" id="modalEditarTarea" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditarLabel">Editar Tarea</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="tareaEditada">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarEdicion()">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Eliminar Tarea -->
+        <div class="modal fade" id="modalEliminarTarea" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEliminarLabel">Eliminar Tarea</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que deseas eliminar esta tarea?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!--- Enlace a Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
